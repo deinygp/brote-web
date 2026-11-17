@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brote · Política de privacidad</title>
+<style>
+  :root { --ink: #23301f; --muted: #5d6b58; --leaf: #3f7d3a; --bg: #f7f8f3; --card: #ffffff; --line: #dfe5d8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #e6ecdf; --muted: #a9b5a2; --leaf: #8cc785; --bg: #151a13; --card: #1d241a; --line: #2f3a2b; color-scheme: dark; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 44rem; margin: 0 auto; padding-block: 2rem 4rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 .25rem; text-wrap: balance; }
+  h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; color: var(--leaf); }
+  p, li { max-width: 65ch; }
+  .meta { color: var(--muted); margin: 0 0 1.5rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.25rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .5rem; border-top: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  .wrap { overflow-x: auto; }
+  a { color: var(--leaf); }
+</style>
+</head>
+<body>
+<main>
+<h1>Política de privacidad de Brote</h1>
+<p class="meta">App Brote: escáner de alimentos · Vigente desde el 17 de noviembre de 2026</p>
+
+<div class="card">
+<p><strong>En corto:</strong> Brote no pide cuenta, ni nombre, ni ubicación. Los datos de tu familia (integrantes, dietas,
+alergias, listas, historial y fotos) se quedan en tu teléfono. Lo único que sale es la información del producto que
+escaneas, para que otras familias lo encuentren, y las sugerencias que tú decidas enviar.</p>
+</div>
+
+<h2>Quién es responsable</h2>
+<p>Brote es desarrollada por Deiny García Pérez, en Chile. Para cualquier consulta sobre privacidad escribe a
+<strong>deiny.gp+dev@gmail.com</strong>.</p>
+
+<h2>Lo que se queda en tu teléfono</h2>
+<ul>
+  <li>Integrantes de la familia, dietas, alergias y listas personales (prohibidos, regulados, recomendables).</li>
+  <li>Historial de escaneos, favoritos, lista de compras y logros.</li>
+  <li>Fotos de etiquetas: se usan para leer los ingredientes con la cámara. El texto se reconoce en el mismo teléfono
+    (Google ML Kit, sin enviar la foto). Las fotos revisadas se borran solas a los 30 días.</li>
+</ul>
+<p>Nada de esto se envía a ningún servidor. Si desinstalas la app, se borra.</p>
+
+<h2>Lo que sale del teléfono</h2>
+<div class="wrap">
+<table>
+  <tr><th>Qué</th><th>A dónde</th><th>Para qué</th></tr>
+  <tr><td>Código de barras de un producto que no está en la app</td><td>Open Food Facts (base pública de alimentos)</td>
+    <td>Buscar sus ingredientes.</td></tr>
+  <tr><td>Datos de un producto nuevo: código, nombre, marca, ingredientes, puntaje y un identificador al azar de la
+    instalación</td><td>Planilla del proyecto (Google Sheets)</td>
+    <td>Sumarlo al registro de la comunidad, para que otras personas lo encuentren. El identificador al azar solo sirve
+    para contar cuántos teléfonos distintos enviaron el mismo producto; no está ligado a tu identidad.</td></tr>
+  <tr><td>Sugerencias que escribes en "Acerca de Brote" y, si aportas, tu nivel de aporte</td><td>Planilla del proyecto</td>
+    <td>Mejorar la app. Si dejas un correo en el mensaje, solo se usa para responderte.</td></tr>
+  <tr><td>Nombre para los agradecimientos (opcional, desde el nivel Huerta)</td><td>Planilla del proyecto</td>
+    <td>Mostrarlo en la app, solo si tú lo pides.</td></tr>
+</table>
+</div>
+<p>Nunca se envían tus dietas, alergias, integrantes ni historial.</p>
+
+<h2>Compras y anuncios</h2>
+<ul>
+  <li><strong>Compras:</strong> Premium y los aportes se pagan con Google Play. Brote no ve ni guarda los datos de tu
+    tarjeta; Google solo le confirma la compra.</li>
+  <li><strong>Anuncios:</strong> la versión gratis muestra anuncios de Google AdMob. AdMob puede usar el identificador de
+    publicidad del dispositivo y datos técnicos para mostrar y medir anuncios, según la
+    <a href="https://policies.google.com/technologies/ads?hl=es">política de Google</a>. Puedes pedir anuncios no
+    personalizados o restablecer el identificador en los ajustes de tu teléfono. En Premium no hay anuncios.</li>
+</ul>
+
+<h2>Permisos</h2>
+<ul>
+  <li><strong>Cámara:</strong> para leer códigos de barras y etiquetas. Las imágenes se procesan en el teléfono.</li>
+  <li><strong>Internet:</strong> para buscar productos, actualizar el registro de la comunidad y enviar lo descrito arriba.</li>
+</ul>
+
+<h2>Niños</h2>
+<p>Brote está pensada para personas adultas (madres, padres y cuidadores). No está dirigida a menores de 13 años ni
+recopila datos de ellos a sabiendas.</p>
+
+<h2>Tus derechos</h2>
+<p>Puedes borrar todos tus datos locales desinstalando la app o borrando sus datos desde los ajustes de Android. Si
+enviaste una sugerencia y quieres que se elimine, escribe al correo de contacto indicando su texto aproximado y la fecha.
+Tratamos los datos conforme a la Ley N° 19.628 de Chile sobre protección de la vida privada.</p>
+
+<h2>Cambios</h2>
+<p>Si esta política cambia, se publica aquí con su nueva fecha de vigencia.</p>
+</main>
+</body>
+</html>
