@@ -119,6 +119,21 @@
     header nav { display: none; }
   }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+  /* Aparición al hacer scroll: solo si hay JS y la persona no pidió menos movimiento; sin JS todo se ve igual. */
+  @media (prefers-reduced-motion: no-preference) {
+    .anim [data-r] { opacity: 0; transform: translateY(28px); transition: opacity .7s ease var(--d, 0s), transform .7s cubic-bezier(.2,.7,.2,1) var(--d, 0s), translate .25s ease, box-shadow .25s ease; }
+    .anim [data-r="left"] { transform: translateX(-36px); }
+    .anim [data-r="zoom"] { transform: scale(.92) translateY(20px); }
+    .anim [data-r].in { opacity: 1; transform: none; }
+    .phone img { animation: flota 6s ease-in-out infinite; }
+    .phone .tag { animation: pop .6s .9s cubic-bezier(.3,1.6,.5,1) both; }
+    .card, .shots img { transition: translate .25s ease, rotate .25s ease, box-shadow .25s ease; }
+    .card:hover { translate: 0 -4px; box-shadow: 7px 9px 0 var(--shadow); }
+    .shots img:hover { translate: 0 -6px; rotate: -1deg; }
+    @keyframes flota { 50% { transform: translateY(-10px); } }
+    @keyframes pop { from { opacity: 0; transform: scale(.6); } }
+  }
 </style>
 </head>
 <body>
@@ -137,15 +152,15 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="pill">Pronto en Google Play</span>
-      <h1 style="margin-top:1rem">Entiende <em>lo que comes</em> antes de echarlo al carro.</h1>
-      <p class="lead">Escanea el código de barras o la etiqueta de un alimento y Brote te dice qué trae: ingredientes, aditivos y alérgenos, con la fuente de cada evaluación.</p>
-      <div class="cta">
+      <span class="pill" data-r>Pronto en Google Play</span>
+      <h1 data-r style="margin-top:1rem;--d:.08s">Entiende <em>lo que comes</em> antes de echarlo al carro.</h1>
+      <p class="lead" data-r style="--d:.16s">Escanea el código de barras o la etiqueta de un alimento y Brote te dice qué trae: ingredientes, aditivos y alérgenos, con la fuente de cada evaluación.</p>
+      <div class="cta" data-r style="--d:.24s">
         <a class="btn" href="#como">Cómo funciona</a>
         <a class="btn ghost" href="#precio">Qué es gratis</a>
       </div>
     </div>
-    <div class="phone">
+    <div class="phone" data-r="zoom" style="--d:.2s">
       <img src="img/2-no-apto.webp" width="618" height="1098" alt="Resultado de Brote para un alfajor: no apto para Sofía por alergia al maní, con su puntaje en un anillo.">
       <div class="tag"><span class="dot" style="background:var(--high)"></span>No apto para Sofía: maní</div>
     </div>
@@ -154,14 +169,14 @@
 
 <section id="como">
   <div class="wrap">
-    <p class="eyebrow">Cómo funciona</p>
-    <h2>Tres pasos en el pasillo del supermercado</h2>
+    <p class="eyebrow" data-r>Cómo funciona</p>
+    <h2 data-r style="--d:.08s">Tres pasos en el pasillo del supermercado</h2>
     <ol class="steps">
-      <li><h3>Apunta</h3><p>La cámara lee el código de barras sola. Si el producto no está, lee la lista de ingredientes de la etiqueta.</p></li>
-      <li><h3>Mira el resultado</h3><p>Un anillo de 100 puntos muestra cuánto le quita cada ingrediente, del verde al rojo.</p></li>
-      <li><h3>Toca para saber más</h3><p>Cada ingrediente explica qué es, para qué se usa y de dónde sale su evaluación.</p></li>
+      <li data-r style="--d:0.00s"><h3>Apunta</h3><p>La cámara lee el código de barras sola. Si el producto no está, lee la lista de ingredientes de la etiqueta.</p></li>
+      <li data-r style="--d:0.12s"><h3>Mira el resultado</h3><p>Un anillo de 100 puntos muestra cuánto le quita cada ingrediente, del verde al rojo.</p></li>
+      <li data-r style="--d:0.24s"><h3>Toca para saber más</h3><p>Cada ingrediente explica qué es, para qué se usa y de dónde sale su evaluación.</p></li>
     </ol>
-    <div class="scale" aria-label="Escala de colores">
+    <div class="scale" data-r aria-label="Escala de colores">
       <span><span class="dot" style="background:var(--ok)"></span>Sin reparos</span>
       <span><span class="dot" style="background:var(--low)"></span>Leve</span>
       <span><span class="dot" style="background:var(--mid)"></span>Moderado</span>
@@ -172,27 +187,27 @@
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">Para toda la familia</p>
-    <h2>Hecha para quienes hacen las compras de la casa</h2>
+    <p class="eyebrow" data-r>Para toda la familia</p>
+    <h2 data-r style="--d:.08s">Hecha para quienes hacen las compras de la casa</h2>
     <div class="grid3">
-      <div class="card">
+      <div class="card" data-r style="--d:0.00s">
         <div class="icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M14.5 15.2c.8-.7 1.6-1 2.5-1 2 0 3.4 1.4 3.8 3.8"/></svg></div>
         <h3>Cada integrante con su pauta</h3>
         <p>Agrega a tu familia con sus alergias y dietas. Brote avisa si un producto no es apto para alguien.</p>
       </div>
-      <div class="card">
+      <div class="card" data-r style="--d:0.12s">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.3-4.6"/></svg></div>
         <h3>Con fuentes, sin alarmismo</h3>
         <p>Las evaluaciones vienen de EFSA, JECFA, IARC y el Reglamento Sanitario de los Alimentos. Separa lo que dice la evidencia de lo que pide tu pauta.</p>
       </div>
-      <div class="card">
+      <div class="card" data-r style="--d:0.24s">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M5 12.5c0-4 3-7 7-7s7 3 7 7"/><path d="M3 12.5h18M7 16.5h10M10 20h4"/></svg></div>
         <h3>Funciona sin señal</h3>
         <p>La base de productos viaja en el teléfono. Lo que se escanea se suma al registro de la comunidad para que otras familias lo encuentren.</p>
       </div>
     </div>
 
-    <div class="shots" tabindex="0" aria-label="Capturas de la app">
+    <div class="shots" data-r="left" tabindex="0" aria-label="Capturas de la app">
       <figure><img src="img/2-no-apto.webp" width="618" height="1098" loading="lazy" alt="Alfajor marcado como no apto por alergia al maní."><figcaption>Alerta de alérgeno por integrante</figcaption></figure>
       <figure><img src="img/1-resultado.webp" width="618" height="1098" loading="lazy" alt="Resultado de un yogur con su puntaje."><figcaption>Puntaje y qué le quitó puntos</figcaption></figure>
       <figure><img src="img/3-ingrediente.webp" width="618" height="1098" loading="lazy" alt="Ficha de la sucralosa con su fuente."><figcaption>Ficha de cada ingrediente</figcaption></figure>
@@ -204,10 +219,10 @@
 
 <section id="precio">
   <div class="wrap">
-    <p class="eyebrow">Gratis y Premium</p>
-    <h2>La versión gratis es completa de verdad</h2>
+    <p class="eyebrow" data-r>Gratis y Premium</p>
+    <h2 data-r style="--d:.08s">La versión gratis es completa de verdad</h2>
     <div class="plans">
-      <div class="card">
+      <div class="card" data-r style="--d:0.00s">
         <h3>Gratis</h3>
         <p class="price">$0</p>
         <ul>
@@ -219,7 +234,7 @@
         </ul>
         <p class="muted" style="margin-top:.9rem">Con anuncios discretos, que ayudan a financiar el proyecto.</p>
       </div>
-      <div class="card premium">
+      <div class="card premium" data-r style="--d:0.00s">
         <h3>Premium</h3>
         <p class="price">$4.990 <small>pago único, sin suscripción</small></p>
         <ul>
@@ -230,15 +245,15 @@
         </ul>
       </div>
     </div>
-    <p class="promise">Alergias, gluten y accesibilidad nunca se cobran.</p>
+    <p class="promise" data-r>Alergias, gluten y accesibilidad nunca se cobran.</p>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <p class="eyebrow">Tu privacidad</p>
-    <h2>Lo de tu familia se queda en tu teléfono</h2>
-    <p class="muted" style="margin-top:1rem">Brote no pide cuenta. Integrantes, alergias, historial y fotos no salen del teléfono. Solo se comparte la información del producto que escaneas, para que otras familias lo encuentren. <a href="privacidad.html">Lee la política completa</a>.</p>
+    <p class="eyebrow" data-r>Tu privacidad</p>
+    <h2 data-r style="--d:.08s">Lo de tu familia se queda en tu teléfono</h2>
+    <p class="muted" data-r style="margin-top:1rem;--d:.16s">Brote no pide cuenta. Integrantes, alergias, historial y fotos no salen del teléfono. Solo se comparte la información del producto que escaneas, para que otras familias lo encuentren. <a href="privacidad.html">Lee la política completa</a>.</p>
   </div>
 </section>
 </main>
@@ -256,6 +271,16 @@
     </div>
   </div>
 </footer>
+<script>
+  // Aparición al hacer scroll (mejora progresiva).
+  if ('IntersectionObserver' in window && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    document.documentElement.classList.add('anim');
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-r]').forEach(el => io.observe(el));
+  }
+</script>
 <script>
   // Total de visitas del sitio (GoatCounter, anónimo). Si falla, no se muestra nada.
   fetch('https://deinygp.goatcounter.com/counter/TOTAL.json').then(r => r.ok ? r.json() : null).then(d => {
