@@ -2,21 +2,257 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brote</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brote: escáner de alimentos</title>
+<meta name="description" content="Escanea un alimento y entiende qué trae: ingredientes, aditivos y alérgenos, con la fuente de cada evaluación. Hecha en Chile para las familias.">
+<meta property="og:title" content="Brote: escáner de alimentos">
+<meta property="og:description" content="Escanea un alimento y entiende sus ingredientes, aditivos y alérgenos.">
+<meta property="og:image" content="https://deinygp.github.io/brote-web/img/og.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#EEF3E6">
+<link rel="icon" type="image/png" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/icono-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
 <style>
-  :root { --ink: #23301f; --muted: #5d6b58; --leaf: #3f7d3a; --bg: #f7f8f3; }
-  @media (prefers-color-scheme: dark) { :root { --ink: #e6ecdf; --muted: #a9b5a2; --leaf: #8cc785; --bg: #151a13; color-scheme: dark; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 40rem; margin: 0 auto; padding-block: 3rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  h1 { margin: 0 0 .5rem; } p { color: var(--muted); } a { color: var(--leaf); }
+  /* Mismos colores, fuentes y tarjetas "hoja" (una esquina menos redonda) que la app. */
+  :root {
+    --bg: #EEF3E6; --card: #FFFFFF; --soft: #DCE6D2; --ink: #1F3A2B; --muted: #5E7464;
+    --leaf: #3F8A4A; --mango: #F0B43C; --shadow: #C6D6B9; --border: rgba(31,58,43,.55);
+    --ok: #3F8A4A; --low: #D9A82A; --mid: #D0601C; --high: #972826;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    --leaf-r: 18px 18px 18px 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #131c16; --card: #1b2820; --soft: #24352a; --ink: #E4EEDF; --muted: #A3B8A7;
+      --leaf: #79C383; --shadow: #0b110d; --border: rgba(228,238,223,.35); color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 68rem; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; }
+  h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 800; }
+  h3 { font-size: 1.2rem; font-weight: 700; }
+  p { margin: 0; max-width: 62ch; }
+  a { color: var(--leaf); font-weight: 700; }
+  a:focus-visible, .btn:focus-visible { outline: 3px solid var(--mango); outline-offset: 3px; }
+  .muted { color: var(--muted); }
+  section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+  .eyebrow { font: 800 .8rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--leaf); margin-bottom: .8rem; }
+
+  /* Encabezado */
+  header { padding-block: 1.1rem; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--ink); font: 800 1.5rem/1 var(--display); }
+  .brand img { width: 40px; height: 40px; border-radius: 12px; }
+  header nav { display: flex; gap: 1.2rem; font-size: .95rem; }
+  header nav a { color: var(--muted); text-decoration: none; font-weight: 700; }
+  header nav a:hover { color: var(--leaf); }
+
+  /* Portada */
+  .hero { padding-block: clamp(1.5rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem); }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero h1 { font-size: clamp(2.6rem, 6.5vw, 4.6rem); font-weight: 800; letter-spacing: -.02em; }
+  .hero h1 em { font-style: normal; color: var(--leaf); }
+  .hero .lead { font-size: 1.2rem; margin-top: 1.2rem; color: var(--muted); }
+  .cta { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin-top: 2rem; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.4rem; border-radius: var(--leaf-r);
+    background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 800; border: 2px solid var(--ink); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .pill { display: inline-block; background: var(--mango); color: #1F3A2B; font-weight: 800; font-size: .8rem;
+    padding: .2rem .6rem; border-radius: 999px; }
+  .phone { justify-self: center; position: relative; width: min(100%, 300px); }
+  .phone img { display: block; width: 100%; height: auto; border-radius: 30px; border: 8px solid var(--ink);
+    box-shadow: 10px 12px 0 var(--shadow); background: var(--card); }
+  .phone .tag { position: absolute; left: -1.5rem; bottom: 2.5rem; background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--leaf-r); padding: .6rem .9rem; font-weight: 700; font-size: .9rem; box-shadow: 4px 5px 0 var(--shadow); }
+  .dot { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; margin-right: .35rem; vertical-align: -.05rem; }
+
+  /* Tarjetas "hoja" */
+  .card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--leaf-r); box-shadow: 5px 6px 0 var(--shadow); padding: 1.4rem; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.2rem; }
+  .card h3 { margin-bottom: .45rem; }
+  .card p { color: var(--muted); }
+  .icon { width: 44px; height: 44px; border-radius: 14px 14px 14px 4px; background: var(--soft); display: grid; place-items: center; margin-bottom: .9rem; }
+  .icon svg { width: 24px; height: 24px; stroke: var(--leaf); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Pasos */
+  .steps { list-style: none; padding: 0; margin: 2.2rem 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; counter-reset: s; }
+  .steps li { counter-increment: s; padding-top: 3.2rem; position: relative; }
+  .steps li::before { content: counter(s); position: absolute; top: 0; left: 0; width: 2.4rem; height: 2.4rem; display: grid; place-items: center;
+    background: var(--mango); color: #1F3A2B; font: 800 1.2rem/1 var(--display); border-radius: 12px 12px 12px 4px; }
+  .steps p { color: var(--muted); margin-top: .35rem; }
+
+  /* Galería */
+  .band { background: var(--soft); }
+  .shots { display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: .5rem .2rem 1.4rem; margin-top: 2rem; }
+  .shots figure { margin: 0; flex: 0 0 min(62vw, 230px); scroll-snap-align: start; }
+  .shots img { width: 100%; height: auto; display: block; border-radius: 22px; border: 6px solid var(--ink); background: var(--card); }
+  .shots figcaption { font-size: .92rem; font-weight: 700; margin-top: .6rem; }
+
+  /* Escala de colores */
+  .scale { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1rem; font-weight: 700; font-size: .95rem; }
+
+  /* Gratis / Premium */
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.2rem; align-items: start; }
+  .plans ul { margin: .9rem 0 0; padding-left: 1.2rem; }
+  .plans li { margin-bottom: .35rem; }
+  .price { font: 800 2rem/1 var(--display); margin-top: .6rem; }
+  .price small { font: 600 .95rem var(--body); color: var(--muted); }
+  .premium { background: #FBF0D6; color: #1F3A2B; }
+  .premium p, .premium .price small { color: #5E7464; }
+  .promise { margin-top: 1.2rem; font-weight: 700; }
+
+  /* Pie */
+  footer { border-top: 1.5px solid var(--border); padding-block: 2rem 3rem; font-size: .95rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; }
+  footer p { color: var(--muted); }
+
+  @media (max-width: 820px) {
+    .hero .wrap, .plans { grid-template-columns: 1fr; }
+    .grid3, .steps { grid-template-columns: 1fr; }
+    .phone { width: min(78%, 280px); }
+    .phone .tag { left: -.5rem; }
+    header nav { display: none; }
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 </style>
 </head>
 <body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/icono-192.png" alt="" width="40" height="40">Brote</a>
+    <nav aria-label="Secciones">
+      <a href="#como">Cómo funciona</a>
+      <a href="#precio">Gratis y Premium</a>
+      <a href="privacidad.html">Privacidad</a>
+    </nav>
+  </div>
+</header>
+
 <main>
-<h1>Brote</h1>
-<p>Escanea un alimento y entiende qué trae: ingredientes, aditivos y alérgenos, con la fuente de cada evaluación.</p>
-<p><a href="privacidad.html">Política de privacidad</a> · Contacto: deiny.gp+dev@gmail.com</p>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill">Pronto en Google Play</span>
+      <h1 style="margin-top:1rem">Entiende <em>lo que comes</em> antes de echarlo al carro.</h1>
+      <p class="lead">Escanea el código de barras o la etiqueta de un alimento y Brote te dice qué trae: ingredientes, aditivos y alérgenos, con la fuente de cada evaluación.</p>
+      <div class="cta">
+        <a class="btn" href="#como">Cómo funciona</a>
+        <a class="btn ghost" href="#precio">Qué es gratis</a>
+      </div>
+    </div>
+    <div class="phone">
+      <img src="img/2-no-apto.webp" width="618" height="1098" alt="Resultado de Brote para un alfajor: no apto para Sofía por alergia al maní, con su puntaje en un anillo.">
+      <div class="tag"><span class="dot" style="background:var(--high)"></span>No apto para Sofía: maní</div>
+    </div>
+  </div>
+</section>
+
+<section id="como">
+  <div class="wrap">
+    <p class="eyebrow">Cómo funciona</p>
+    <h2>Tres pasos en el pasillo del supermercado</h2>
+    <ol class="steps">
+      <li><h3>Apunta</h3><p>La cámara lee el código de barras sola. Si el producto no está, lee la lista de ingredientes de la etiqueta.</p></li>
+      <li><h3>Mira el resultado</h3><p>Un anillo de 100 puntos muestra cuánto le quita cada ingrediente, del verde al rojo.</p></li>
+      <li><h3>Toca para saber más</h3><p>Cada ingrediente explica qué es, para qué se usa y de dónde sale su evaluación.</p></li>
+    </ol>
+    <div class="scale" aria-label="Escala de colores">
+      <span><span class="dot" style="background:var(--ok)"></span>Sin reparos</span>
+      <span><span class="dot" style="background:var(--low)"></span>Leve</span>
+      <span><span class="dot" style="background:var(--mid)"></span>Moderado</span>
+      <span><span class="dot" style="background:var(--high)"></span>Alto</span>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Para toda la familia</p>
+    <h2>Hecha para quienes hacen las compras de la casa</h2>
+    <div class="grid3">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M14.5 15.2c.8-.7 1.6-1 2.5-1 2 0 3.4 1.4 3.8 3.8"/></svg></div>
+        <h3>Cada integrante con su pauta</h3>
+        <p>Agrega a tu familia con sus alergias y dietas. Brote avisa si un producto no es apto para alguien.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.3-4.6"/></svg></div>
+        <h3>Con fuentes, sin alarmismo</h3>
+        <p>Las evaluaciones vienen de EFSA, JECFA, IARC y el Reglamento Sanitario de los Alimentos. Separa lo que dice la evidencia de lo que pide tu pauta.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M5 12.5c0-4 3-7 7-7s7 3 7 7"/><path d="M3 12.5h18M7 16.5h10M10 20h4"/></svg></div>
+        <h3>Funciona sin señal</h3>
+        <p>La base de productos viaja en el teléfono. Lo que se escanea se suma al registro de la comunidad para que otras familias lo encuentren.</p>
+      </div>
+    </div>
+
+    <div class="shots" tabindex="0" aria-label="Capturas de la app">
+      <figure><img src="img/2-no-apto.webp" width="618" height="1098" loading="lazy" alt="Alfajor marcado como no apto por alergia al maní."><figcaption>Alerta de alérgeno por integrante</figcaption></figure>
+      <figure><img src="img/1-resultado.webp" width="618" height="1098" loading="lazy" alt="Resultado de un yogur con su puntaje."><figcaption>Puntaje y qué le quitó puntos</figcaption></figure>
+      <figure><img src="img/3-ingrediente.webp" width="618" height="1098" loading="lazy" alt="Ficha de la sucralosa con su fuente."><figcaption>Ficha de cada ingrediente</figcaption></figure>
+      <figure><img src="img/4-historial.webp" width="618" height="1098" loading="lazy" alt="Historial de productos escaneados."><figcaption>Historial de lo escaneado</figcaption></figure>
+      <figure><img src="img/5-logros.webp" width="618" height="1098" loading="lazy" alt="Pantalla de logros."><figcaption>Logros mientras aprendes</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="precio">
+  <div class="wrap">
+    <p class="eyebrow">Gratis y Premium</p>
+    <h2>La versión gratis es completa de verdad</h2>
+    <div class="plans">
+      <div class="card">
+        <h3>Gratis</h3>
+        <p class="price">$0</p>
+        <ul>
+          <li>Escaneo de código y de etiqueta</li>
+          <li>Integrantes con alergias y dietas</li>
+          <li>Ficha y fuente de cada ingrediente</li>
+          <li>Historial, listas y logros</li>
+          <li>Modo senior y lupas de zoom</li>
+        </ul>
+        <p class="muted" style="margin-top:.9rem">Con anuncios discretos, que ayudan a financiar el proyecto.</p>
+      </div>
+      <div class="card premium">
+        <h3>Premium</h3>
+        <p class="price">$4.990 <small>pago único, sin suscripción</small></p>
+        <ul>
+          <li>Sin anuncios</li>
+          <li>Modo estricto para tu pauta</li>
+          <li>Comparar productos lado a lado</li>
+          <li>Apoyas que Brote siga creciendo</li>
+        </ul>
+      </div>
+    </div>
+    <p class="promise">Alergias, gluten y accesibilidad nunca se cobran.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Tu privacidad</p>
+    <h2>Lo de tu familia se queda en tu teléfono</h2>
+    <p class="muted" style="margin-top:1rem">Brote no pide cuenta. Integrantes, alergias, historial y fotos no salen del teléfono. Solo se comparte la información del producto que escaneas, para que otras familias lo encuentren. <a href="privacidad.html">Lee la política completa</a>.</p>
+  </div>
+</section>
 </main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p><strong style="color:var(--ink)">Brote</strong> · Hecha en Chile por Deiny García Pérez</p>
+      <p>Contacto: deiny.gp+dev@gmail.com</p>
+    </div>
+    <div>
+      <p><a href="privacidad.html">Política de privacidad</a> · <a href="privacidad.html#borrar-datos">Borrar mis datos</a></p>
+      <p>Datos de productos de Open Food Facts (ODbL).</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
