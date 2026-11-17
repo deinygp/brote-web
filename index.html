@@ -88,6 +88,13 @@
   /* Galería */
   .band { background: var(--soft); }
   .shots { display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: .5rem .2rem 1.4rem; margin-top: 2rem; }
+  /* Barra de la galería: delgada y redonda, en los colores de la app. */
+  .shots::-webkit-scrollbar { height: 10px; }
+  .shots::-webkit-scrollbar-track { background: color-mix(in srgb, var(--ink) 8%, transparent); border-radius: 999px; margin-inline: 4px; }
+  .shots::-webkit-scrollbar-thumb { background: var(--leaf); border-radius: 999px; border: 2px solid var(--soft); }
+  .shots::-webkit-scrollbar-thumb:hover { background: var(--ink); }
+  .shots::-webkit-scrollbar-button { display: none; }
+  @supports (-moz-appearance: none) { .shots { scrollbar-width: thin; scrollbar-color: var(--leaf) transparent; } }
   .shots figure { margin: 0; flex: 0 0 min(62vw, 230px); scroll-snap-align: start; }
   .shots img { width: 100%; height: auto; display: block; border-radius: 22px; border: 6px solid var(--ink); background: var(--card); }
   .shots figcaption { font-size: .92rem; font-weight: 700; margin-top: .6rem; }
