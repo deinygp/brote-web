@@ -109,6 +109,7 @@
   footer { border-top: 1.5px solid var(--border); padding-block: 2rem 3rem; font-size: .95rem; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; }
   footer p { color: var(--muted); }
+  .visitas { font-size: .8rem; opacity: .75; font-variant-numeric: tabular-nums; }
 
   @media (max-width: 820px) {
     .hero .wrap, .plans { grid-template-columns: 1fr; }
@@ -251,9 +252,20 @@
     <div>
       <p><a href="privacidad.html">Política de privacidad</a> · <a href="privacidad.html#borrar-datos">Borrar mis datos</a></p>
       <p>Datos de productos de Open Food Facts (ODbL).</p>
+      <p id="visitas" class="visitas" hidden></p>
     </div>
   </div>
 </footer>
+<script>
+  // Total de visitas del sitio (GoatCounter, anónimo). Si falla, no se muestra nada.
+  fetch('https://deinygp.goatcounter.com/counter/TOTAL.json').then(r => r.ok ? r.json() : null).then(d => {
+    const n = d && parseInt(String(d.count).replace(/\D/g, ''), 10);
+    if (!n) return;
+    const el = document.getElementById('visitas');
+    el.textContent = n.toLocaleString('es-CL') + (n === 1 ? ' visita' : ' visitas');
+    el.hidden = false;
+  }).catch(() => {});
+</script>
 <script data-goatcounter="https://deinygp.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
