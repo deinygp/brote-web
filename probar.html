@@ -160,6 +160,9 @@
   .faq p { margin: .5rem 0 0; color: var(--muted); }
   .share { font: 700 1rem/1.4 var(--body); word-break: break-all; }
   .narrow { max-width: 46rem; }
+  .shot { margin: 1rem 0; max-width: 20rem; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1.5px solid var(--border); background: #fff; }
+  .shot figcaption { margin-top: .4rem; font-size: .9rem; color: var(--muted); }
   .narrow h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
   .narrow .lead { font-size: 1.15rem; margin-top: 1rem; color: var(--muted); }
 </style>
@@ -199,16 +202,22 @@
       </li>
       <li>
         <div>
-          <h3>Acepta ser tester en Play Store</h3>
-          <p>Es el paso que más se olvida: sin él, la app aparece como no disponible. Ojo: mientras esté en prueba, Brote <strong>no aparece si la buscas por nombre</strong> en Play Store; entra siempre con este botón. Desde tu teléfono, abre Brote en Play Store y baja hasta el recuadro de la <strong>prueba</strong>; toca <strong>«Unirse»</strong> (Google le dice «verificador» a quien prueba la app). Así se usa sola la cuenta de tu teléfono.</p>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=com.deinygp.brote" rel="noopener"><svg class="play" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z"/></svg>Abrir Brote en Play Store</a>
-          <p style="margin-top:.8rem">¿No ves el recuadro o estás en un computador? Usa el <a href="https://play.google.com/apps/testing/com.deinygp.brote" rel="noopener">enlace para ser tester</a> y toca «Convertirse en verificador». Si dice que no tienes acceso, Google todavía no te ve en el grupo: revisa que sea la misma cuenta, espera unos 15 minutos y vuelve a intentar.</p>
+          <h3>Acepta ser tester</h3>
+          <p>Es el paso que más se olvida: sin él, la app aparece como no disponible. Abre el enlace y toca <strong>«Convertirse en verificador»</strong> (así le dice Google a quien prueba la app). Sabes que funcionó cuando ves <strong>«Eres un probador»</strong>, como en la imagen.</p>
+          <a class="btn" href="https://play.google.com/apps/testing/com.deinygp.brote" rel="noopener">Ser tester de Brote</a>
+          <figure class="shot">
+            <img src="img/paso-probador.webp" width="698" height="900" loading="lazy" alt="Página de Google Play que dice «Eres un probador» para Brote, con el enlace azul «descárgala en Google Play».">
+            <figcaption>Así se ve cuando ya eres tester. El enlace azul te lleva a instalarla.</figcaption>
+          </figure>
+          <p>Si dice que no tienes acceso, Google todavía no te ve en el grupo: revisa que sea la misma cuenta, espera unos 15 minutos y vuelve a abrir el enlace.</p>
         </div>
       </li>
       <li>
         <div>
           <h3>Instala Brote</h3>
-          <p>En la misma página de Play Store toca <strong>«Instalar»</strong>. Aparece como <em>acceso anticipado</em>: es normal en las pruebas. Si el botón no aparece todavía, cierra Play Store y vuelve a abrirla en unos minutos: a veces Google tarda hasta una hora en habilitarla.</p>
+          <p>En esa misma página, toca el enlace azul <strong>«descárgala en Google Play»</strong> y luego <strong>«Instalar»</strong>. Mientras esté en prueba, Brote <strong>no aparece si la buscas por nombre</strong> en Play Store: entra siempre por el enlace. Aparece como <em>acceso anticipado</em>, es normal en las pruebas.</p>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.deinygp.brote" rel="noopener"><svg class="play" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z"/></svg>Abrir Brote en Play Store</a>
+          <p style="margin-top:.8rem">Si dice que no está disponible: en Play Store toca tu foto arriba a la derecha y revisa que sea el mismo correo de los pasos 1 y 2. Si lo es, espera un rato (a veces Google tarda hasta una hora) y vuelve a abrir el enlace.</p>
         </div>
       </li>
       <li>
