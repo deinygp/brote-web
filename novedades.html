@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Novedades de Brote</title>
+<meta name="description" content="Qué cambia en cada versión de Brote, el escáner de alimentos, contado en simple.">
+<meta property="og:title" content="Novedades de Brote">
+<meta property="og:description" content="Qué cambia en cada versión de Brote, contado en simple.">
+<meta property="og:image" content="https://deinygp.github.io/brote-web/img/og.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#EEF3E6">
+<link rel="icon" type="image/png" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/icono-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
+<style>
+  /* Mismos colores, fuentes y tarjetas "hoja" (una esquina menos redonda) que la app. */
+  :root {
+    --bg: #EEF3E6; --card: #FFFFFF; --soft: #DCE6D2; --ink: #1F3A2B; --muted: #5E7464;
+    --leaf: #3F8A4A; --mango: #F0B43C; --shadow: #C6D6B9; --border: rgba(31,58,43,.55);
+    --ok: #3F8A4A; --low: #D9A82A; --mid: #D0601C; --high: #972826;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    --leaf-r: 18px 18px 18px 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #131c16; --card: #1b2820; --soft: #24352a; --ink: #E4EEDF; --muted: #A3B8A7;
+      --leaf: #79C383; --shadow: #0b110d; --border: rgba(228,238,223,.35); color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 68rem; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; }
+  h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 800; }
+  h3 { font-size: 1.2rem; font-weight: 700; }
+  p { margin: 0; max-width: 62ch; }
+  a { color: var(--leaf); font-weight: 700; }
+  a:focus-visible, .btn:focus-visible { outline: 3px solid var(--mango); outline-offset: 3px; }
+  .muted { color: var(--muted); }
+  section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+  .eyebrow { font: 800 .8rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--leaf); margin-bottom: .8rem; }
+
+  /* Encabezado */
+  header { padding-block: 1.1rem; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--ink); font: 800 1.5rem/1 var(--display); }
+  .brand img { width: 40px; height: 40px; border-radius: 12px; }
+  header nav { display: flex; gap: 1.2rem; font-size: .95rem; }
+  header nav a { color: var(--muted); text-decoration: none; font-weight: 700; }
+  header nav a:hover { color: var(--leaf); }
+
+  /* Portada */
+  .hero { padding-block: clamp(1.5rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem); }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero h1 { font-size: clamp(2.6rem, 6.5vw, 4.6rem); font-weight: 800; letter-spacing: -.02em; }
+  .hero h1 em { font-style: normal; color: var(--leaf); }
+  .hero .lead { font-size: 1.2rem; margin-top: 1.2rem; color: var(--muted); }
+  .cta { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin-top: 2rem; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.4rem; border-radius: var(--leaf-r);
+    background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 800; border: 2px solid var(--ink); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .pill { display: inline-block; background: var(--mango); color: #1F3A2B; font-weight: 800; font-size: .8rem;
+    padding: .2rem .6rem; border-radius: 999px; }
+  .phone { justify-self: center; position: relative; width: min(100%, 300px); }
+  .phone img { display: block; width: 100%; height: auto; border-radius: 30px; border: 8px solid var(--ink);
+    box-shadow: 10px 12px 0 var(--shadow); background: var(--card); }
+  .phone .tag { position: absolute; left: -1.5rem; bottom: 2.5rem; background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--leaf-r); padding: .6rem .9rem; font-weight: 700; font-size: .9rem; box-shadow: 4px 5px 0 var(--shadow); }
+  .dot { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; margin-right: .35rem; vertical-align: -.05rem; }
+
+  /* Tarjetas "hoja" */
+  .card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--leaf-r); box-shadow: 5px 6px 0 var(--shadow); padding: 1.4rem; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.2rem; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.2rem; align-items: start; }
+  .card .small { font-size: .92rem; margin-top: .7rem; }
+  .flow { margin: .4rem 0 0; padding-left: 1.2rem; color: var(--muted); }
+  .flow li { margin-bottom: .3rem; }
+  .flow li::marker { color: var(--leaf); font-weight: 800; }
+  .btn .play { width: 1.05em; height: 1.05em; fill: currentColor; }
+  .note { font-size: .9rem; color: var(--muted); margin-top: .9rem; }
+  .card h3 { margin-bottom: .45rem; }
+  .card p { color: var(--muted); }
+  .icon { width: 44px; height: 44px; border-radius: 14px 14px 14px 4px; background: var(--soft); display: grid; place-items: center; margin-bottom: .9rem; }
+  .icon svg { width: 24px; height: 24px; stroke: var(--leaf); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Pasos */
+  .steps { list-style: none; padding: 0; margin: 2.2rem 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; counter-reset: s; }
+  .steps li { counter-increment: s; padding-top: 3.2rem; position: relative; }
+  .steps li::before { content: counter(s); position: absolute; top: 0; left: 0; width: 2.4rem; height: 2.4rem; display: grid; place-items: center;
+    background: var(--mango); color: #1F3A2B; font: 800 1.2rem/1 var(--display); border-radius: 12px 12px 12px 4px; }
+  .steps p { color: var(--muted); margin-top: .35rem; }
+
+  /* Galería */
+  .band { background: var(--soft); }
+  .shots { display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: .5rem .2rem 1.4rem; margin-top: 2rem; }
+  /* Barra de la galería: delgada y redonda, en los colores de la app. */
+  .shots::-webkit-scrollbar { height: 10px; }
+  .shots::-webkit-scrollbar-track { background: color-mix(in srgb, var(--ink) 8%, transparent); border-radius: 999px; margin-inline: 4px; }
+  .shots::-webkit-scrollbar-thumb { background: var(--leaf); border-radius: 999px; border: 2px solid var(--bg); }
+  .shots::-webkit-scrollbar-thumb:hover { background: var(--ink); }
+  .shots::-webkit-scrollbar-button { display: none; }
+  @supports (-moz-appearance: none) { .shots { scrollbar-width: thin; scrollbar-color: var(--leaf) transparent; } }
+  .shots figure { margin: 0; flex: 0 0 min(62vw, 230px); scroll-snap-align: start; }
+  .shots img { width: 100%; height: auto; display: block; border-radius: 22px; border: 6px solid var(--ink); background: var(--card); }
+  .shots figcaption { font-size: .92rem; font-weight: 700; margin-top: .6rem; }
+
+  /* Escala de colores */
+  .scale { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1rem; font-weight: 700; font-size: .95rem; }
+
+  /* Gratis / Premium */
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.2rem; align-items: start; }
+  .plans ul { margin: .9rem 0 0; padding-left: 1.2rem; }
+  .plans li { margin-bottom: .35rem; }
+  .price { font: 800 2rem/1 var(--display); margin-top: .6rem; }
+  .price small { font: 600 .95rem var(--body); color: var(--muted); }
+  .premium { background: #FBF0D6; color: #1F3A2B; }
+  .premium p, .premium .price small { color: #5E7464; }
+  .promise { margin-top: 1.2rem; font-weight: 700; }
+
+  /* Pie */
+  footer { border-top: 1.5px solid var(--border); padding-block: 2rem 3rem; font-size: .95rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; }
+  footer p { color: var(--muted); }
+  .visitas { font-size: .8rem; opacity: .75; font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 820px) {
+    .hero .wrap, .plans { grid-template-columns: 1fr; }
+    .grid3, .grid2, .steps { grid-template-columns: 1fr; }
+    .phone { width: min(78%, 280px); }
+    .phone .tag { left: -.5rem; }
+    header nav { display: none; }
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+  /* Aparición al hacer scroll: solo si hay JS y la persona no pidió menos movimiento; sin JS todo se ve igual. */
+  @media (prefers-reduced-motion: no-preference) {
+    .anim [data-r] { opacity: 0; transform: translateY(28px); transition: opacity .7s ease var(--d, 0s), transform .7s cubic-bezier(.2,.7,.2,1) var(--d, 0s), translate .25s ease, box-shadow .25s ease; }
+    .anim [data-r="left"] { transform: translateX(-36px); }
+    .anim [data-r="zoom"] { transform: scale(.92) translateY(20px); }
+    .anim [data-r].in { opacity: 1; transform: none; }
+    .phone img { animation: flota 6s ease-in-out infinite; }
+    .phone .tag { animation: pop .6s .9s cubic-bezier(.3,1.6,.5,1) both; }
+    .card, .shots img { transition: translate .25s ease, rotate .25s ease, box-shadow .25s ease; }
+    .card:hover { translate: 0 -4px; box-shadow: 7px 9px 0 var(--shadow); }
+    .shots img:hover { translate: 0 -6px; rotate: -1deg; }
+    @keyframes flota { 50% { transform: translateY(-10px); } }
+    @keyframes pop { from { opacity: 0; transform: scale(.6); } }
+  }
+  .narrow { max-width: 46rem; }
+  .rel { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1.2rem; }
+  .rel > li { background: var(--card); border: 1.5px solid var(--border); border-radius: 22px 22px 22px 8px; padding: 1.2rem 1.3rem; }
+  .rel header { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .8rem; }
+  .rel h2 { margin: 0; font: 800 1.35rem/1.2 var(--display); }
+  .rel time, .rel .ver { color: var(--muted); font-size: .92rem; }
+  .rel .stage { font-size: .78rem; font-weight: 800; padding: .15rem .6rem; border-radius: 99px; border: 1.5px solid var(--border); }
+  .rel .stage.next { background: var(--mango); color: #1F3A2B; border-color: transparent; }
+  .rel ul { margin: .7rem 0 0; padding-left: 1.1rem; display: grid; gap: .45rem; }
+  .rel li li::marker { color: var(--leaf); }
+  .rel strong { color: var(--ink); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/icono-192.png" alt="" width="40" height="40">Brote</a>
+    <nav aria-label="Secciones">
+      <a href="./#como">Cómo funciona</a>
+      <a href="./#precio">Gratis y Premium</a>
+      <a href="probar.html">Probar</a>
+      <a href="novedades.html">Novedades</a>
+      <a href="privacidad.html">Privacidad</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap narrow">
+    <span class="pill">Novedades</span>
+    <h1 style="margin-top:1rem">Lo nuevo en <em style="font-style:normal;color:var(--leaf)">Brote</em></h1>
+    <p class="lead">Brote crece con lo que nos cuentan quienes la usan. Aquí va lo que cambia en cada versión, contado en simple.</p>
+    <p>Las versiones llegan primero a una prueba interna y después a los testers. <a href="probar.html">¿Quieres probarla tú también?</a></p>
+    <ol class="rel">
+      <li id="v1.0.8">
+        <header>
+          <h2>Entiendes por qué pierde puntos</h2>
+          <span class="ver">Versión 1.0.8</span>
+          
+          <span class="stage next">En camino</span>
+        </header>
+        <ul>
+          <li><strong>Ahora sabes qué ingredientes hacen ultraprocesado un producto.</strong> «Ultraprocesado», «Azúcar repartido» y «Efecto cóctel» dicen cuáles ingredientes los causan, y al tocarlos te explican el porqué y de dónde sale el criterio.</li>
+          <li>En la lista de ingredientes, los que delatan un ultraprocesado o un azúcar añadido llevan una etiqueta gris, para reconocerlos de un vistazo.</li>
+          <li><strong>Separa ingredientes que la etiqueta trae pegados.</strong> Si Brote leyó varios como uno, te sugiere cómo separarlos o los cortas tú tocando entre las palabras, sin escribir.</li>
+          <li>Lee bien «inosinato y guanilato de sodio» o «ácido cítrico y láctico»: son dos ingredientes cada uno.</li>
+          <li>Gracias a quienes nos mandaron estas ideas desde la prueba 💚</li>
+        </ul>
+      </li>
+      <li id="v1.0.7">
+        <header>
+          <h2>Modo noche</h2>
+          <span class="ver">Versión 1.0.7</span>
+          <time>20 de noviembre</time>
+          <span class="stage">En prueba interna</span>
+        </header>
+        <ul>
+          <li><strong>Modo noche</strong>, gratis para todos: en Perfil → Tema eliges Claro, Oscuro o Sistema (sigue al teléfono).</li>
+          <li>Los textos y enlaces verdes se leen mejor, de día y de noche.</li>
+        </ul>
+      </li>
+      <li id="v1.0.4">
+        <header>
+          <h2>Celebramos tu apoyo</h2>
+          <span class="ver">Versión 1.0.4 a 1.0.6</span>
+          <time>19 de noviembre</time>
+          <span class="stage">En prueba interna</span>
+        </header>
+        <ul>
+          <li>Si te haces Premium o haces un aporte, Brote lo celebra en grande.</li>
+          <li>Tu nivel de apoyo (Semilla, Brote, Planta, Árbol, Huerta) aparece arriba de cada pantalla, y la marca crece contigo.</li>
+        </ul>
+      </li>
+      <li id="v1.0.3">
+        <header>
+          <h2>Premium y aportes</h2>
+          <span class="ver">Versión 1.0.3</span>
+          <time>19 de noviembre</time>
+          <span class="stage">Disponible para testers</span>
+        </header>
+        <ul>
+          <li><strong>Premium</strong> de pago único, sin suscripción: quita los anuncios y suma extras como comparar productos o hasta 6 integrantes.</li>
+          <li>Puedes aportar al proyecto cuando quieras. Lo importante sigue gratis: alergias, gluten, alertas para niños y accesibilidad.</li>
+        </ul>
+      </li>
+      <li id="v1.0.2">
+        <header>
+          <h2>Zoom en la foto</h2>
+          <span class="ver">Versión 1.0.2</span>
+          <time>19 de noviembre</time>
+          <span class="stage">Disponible para testers</span>
+        </header>
+        <ul>
+          <li>Pellizca para ampliar la foto al marcar dónde están los ingredientes.</li>
+        </ul>
+      </li>
+      <li id="v1.0.1">
+        <header>
+          <h2>Pensada para los niños</h2>
+          <span class="ver">Versión 1.0.1</span>
+          <time>19 de noviembre</time>
+          <span class="stage">Disponible para testers</span>
+        </header>
+        <ul>
+          <li><strong>Perfil Niño/a</strong>: los colorantes y edulcorantes que conviene evitar en niños pesan más y te avisan, y la cafeína queda como «No apto».</li>
+          <li><strong>Sellos sugeridos</strong>: si el envase no trae los sellos ALTO EN, Brote los estima con la tabla nutricional.</li>
+          <li>Aviso cuando un producto contiene alcohol, y opción «Sin alcohol» por integrante.</li>
+          <li>Más golosinas, jugos, lácteos y cereales en la base.</li>
+          <li>Anuncios pequeños y discretos en la versión gratis: nunca a pantalla completa ni mientras escaneas.</li>
+        </ul>
+      </li>
+      <li id="v1.0.0">
+        <header>
+          <h2>Primera versión de prueba</h2>
+          <span class="ver">Versión 1.0.0</span>
+          <time>17 de noviembre</time>
+          <span class="stage">Disponible para testers</span>
+        </header>
+        <ul>
+          <li>Escanea el código de barras o fotografía la etiqueta, aunque no tengas internet.</li>
+          <li>Más de 11.000 productos chilenos incluidos.</li>
+          <li>Puntaje de 0 a 100 con la fuente de cada evaluación, y alertas de alergias y dietas por integrante.</li>
+          <li>Historial, listas personales, logros, modo senior y lupas de zoom.</li>
+        </ul>
+      </li>
+    </ol>
+    <p class="muted" style="margin-top:2rem">¿Se te ocurre una mejora? Cuéntanos desde la app, en Perfil → Acerca de Brote.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p><strong style="color:var(--ink)">Brote</strong> · Hecha en Chile por Deiny García Pérez</p>
+      <p>Contacto: deiny.gp+dev@gmail.com</p>
+    </div>
+    <div>
+      <p><a href="https://play.google.com/store/apps/details?id=com.deinygp.brote" rel="noopener">Brote en Google Play</a> · <a href="novedades.html">Novedades</a> · <a href="privacidad.html">Política de privacidad</a> · <a href="privacidad.html#borrar-datos">Borrar mis datos</a></p>
+      <p>Datos de productos de Open Food Facts (ODbL).</p>
+      <p id="visitas" class="visitas" hidden></p>
+    </div>
+  </div>
+</footer>
+<script>
+  // Aparición al hacer scroll (mejora progresiva).
+  if ('IntersectionObserver' in window && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    document.documentElement.classList.add('anim');
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-r]').forEach(el => io.observe(el));
+  }
+</script>
+<script>
+  // Total de visitas del sitio (GoatCounter, anónimo). Si falla, no se muestra nada.
+  fetch('https://deinygp.goatcounter.com/counter/TOTAL.json').then(r => r.ok ? r.json() : null).then(d => {
+    const n = d && parseInt(String(d.count).replace(/\D/g, ''), 10);
+    if (!n) return;
+    const el = document.getElementById('visitas');
+    el.textContent = n.toLocaleString('es-CL') + (n === 1 ? ' visita' : ' visitas');
+    el.hidden = false;
+  }).catch(() => {});
+</script>
+<script data-goatcounter="https://deinygp.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
