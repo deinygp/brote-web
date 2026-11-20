@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cómo calificamos · Ayuda de Brote</title>
+<meta name="description" content="Cómo se calcula el puntaje: cada producto parte con 100 puntos y pierde por lo que trae.">
+<meta name="theme-color" content="#EEF3E6">
+<link rel="icon" type="image/png" href="../img/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,800&display=swap">
+<style>
+  :root {
+    --bg: #EEF3E6; --card: #FFFFFF; --ink: #1F3A2B; --muted: #5E7464; --leaf: #3F8A4A; --mango: #F0B43C;
+    --shadow: #C6D6B9; --border: rgba(31,58,43,.55);
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    --leaf-r: 18px 18px 18px 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #131c16; --card: #1b2820; --ink: #E4EEDF; --muted: #A3B8A7; --leaf: #79C383; --shadow: #0b110d;
+      --border: rgba(228,238,223,.35); color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 64rem; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  h1, h2 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -.01em; }
+  h2 { font-size: 1.25rem; font-weight: 800; margin-top: 1.8rem; }
+  p { margin: 0; max-width: 62ch; }
+  a { color: var(--leaf); font-weight: 700; }
+  a:focus-visible { outline: 3px solid var(--mango); outline-offset: 3px; }
+  header { padding-block: 1.1rem; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--ink); font: 800 1.4rem/1 var(--display); }
+  .brand img { width: 36px; height: 36px; border-radius: 10px; }
+  header nav { display: flex; gap: 1rem; }
+  header nav a { color: var(--muted); text-decoration: none; }
+  main { padding-block: 1rem 4rem; }
+  .eyebrow { font: 800 .8rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--leaf); margin-bottom: .7rem; }
+  .lead { font-size: 1.15rem; color: var(--muted); margin-top: .9rem; }
+  .page { display: grid; grid-template-columns: 1fr minmax(0, 300px); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  ul { margin: .6rem 0 0; padding-left: 1.2rem; max-width: 62ch; }
+  li { margin-bottom: .45rem; }
+  li::marker { color: var(--leaf); }
+  figure { margin: 0; position: sticky; top: 1rem; }
+  figure img { display: block; width: 100%; height: auto; border-radius: 26px; border: 7px solid var(--ink); box-shadow: 8px 10px 0 var(--shadow); background: var(--card); }
+  figcaption { font-size: .85rem; color: var(--muted); margin-top: .9rem; text-align: center; }
+  .back { display: inline-block; margin-top: 2.4rem; }
+  .groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+  .card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--leaf-r); box-shadow: 5px 6px 0 var(--shadow); padding: 1.2rem 1.3rem; }
+  .card h2 { margin: 0 0 .4rem; font-size: 1.1rem; }
+  .card ul { list-style: none; padding: 0; margin: 0; }
+  .card li { margin: .35rem 0; }
+  footer { border-top: 1.5px solid var(--border); padding-block: 1.6rem 2.6rem; font-size: .92rem; color: var(--muted); }
+  @media (max-width: 720px) { .page { grid-template-columns: 1fr; } figure { position: static; max-width: 260px; margin-inline: auto; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../img/icono-192.png" alt="" width="36" height="36">Brote</a>
+    <nav aria-label="Secciones"><a href="./">Ayuda</a><a href="../probar.html">Probar</a><a href="../novedades.html">Novedades</a></nav>
+  </div>
+</header>
+<main class="wrap">
+  <div class="page">
+    <article>
+      <p class="eyebrow">Ayuda · Perfil</p>
+      <h1>Cómo calificamos</h1>
+      <p class="lead">Cómo se calcula el puntaje: cada producto parte con 100 puntos y pierde por lo que trae.</p>
+<h2>El puntaje</h2>
+<ul>
+  <li>Cada producto parte con 100 puntos.</li>
+  <li>Pierde por ingredientes de riesgo, aditivos, ultraprocesado, azúcar repartida en varios nombres y el efecto cóctel (varios aditivos juntos).</li>
+  <li>Un ingrediente de riesgo alto o una grasa trans dejan el puntaje en 49 como máximo.</li>
+</ul>
+<h2>Aptitud</h2>
+<ul>
+  <li>Alergias, celíaco, vegano y tus prohibidos no restan puntos: marcan el producto como «No apto».</li>
+</ul>
+<h2>Niveles de riesgo</h2>
+<ul>
+  <li>Los aditivos se ordenan de R1 a R9, según lo que dicen la IARC, la EFSA, el JECFA y la normativa chilena.</li>
+</ul>
+      <a class="back" href="./">← Todas las pantallas</a>
+    </article>
+    <figure><img src="img/how-we-rate.webp" alt="Pantalla «Cómo calificamos» de Brote" width="412" height="870" loading="lazy"><figcaption>Así se ve la pantalla, con datos de ejemplo.</figcaption></figure>
+  </div>
+</main>
+<footer><div class="wrap"><p>Brote · Hecha en Chile. Las imágenes muestran datos de ejemplo.</p></div></footer>
+</body>
+</html>
