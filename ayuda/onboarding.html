@@ -45,6 +45,10 @@
   li { margin-bottom: .45rem; }
   li::marker { color: var(--leaf); }
   figure { margin: 0; position: sticky; top: 1rem; }
+  /* Es una foto de la pantalla, no la app: que no invite a tocarla. */
+  .shot { position: relative; pointer-events: none; user-select: none; }
+  .shot::after { content: 'Imagen de ejemplo'; position: absolute; top: -13px; left: 50%; transform: translateX(-50%) rotate(-3deg); background: #FCE7A4; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 999px; padding: .3rem .8rem; font: 800 .78rem/1 var(--body); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; box-shadow: 3px 3px 0 var(--shadow); }
+  .shot img { filter: saturate(.85); }
   figure img { display: block; width: 100%; height: auto; border-radius: 26px; border: 7px solid var(--ink); box-shadow: 8px 10px 0 var(--shadow); background: var(--card); }
   figcaption { font-size: .85rem; color: var(--muted); margin-top: .9rem; text-align: center; }
   .back { display: inline-block; margin-top: 2.4rem; }
@@ -83,7 +87,7 @@
 </ul>
       <a class="back" href="./">← Todas las pantallas</a>
     </article>
-    <figure><img src="img/onboarding.webp" alt="Pantalla «Personalizar» de Brote" width="412" height="870" loading="lazy"><figcaption>Así se ve la pantalla, con datos de ejemplo.</figcaption></figure>
+    <figure><div class="shot"><img src="img/onboarding.webp" alt="Imagen de ejemplo de la pantalla «Personalizar» de Brote" width="412" height="870" loading="lazy"></div><figcaption>Es una imagen, no se puede tocar. Así se ve la pantalla en tu teléfono, con datos de ejemplo.</figcaption></figure>
   </div>
 </main>
 <footer><div class="wrap"><p>Brote · Hecha en Chile. Las imágenes muestran datos de ejemplo.</p></div></footer>
