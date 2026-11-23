@@ -160,7 +160,11 @@
   .faq p { margin: .5rem 0 0; color: var(--muted); }
   .share { font: 700 1rem/1.4 var(--body); word-break: break-all; }
   .narrow { max-width: 46rem; }
-  .shot { margin: 1rem 0; max-width: 20rem; }
+  .shot { margin: 1.4rem 0 1rem; max-width: 20rem; position: relative; }
+  /* Es una foto de la página de Google: el enlace azul de la imagen no se toca aquí. */
+  .shot .pic { position: relative; pointer-events: none; user-select: none; }
+  .shot .pic::after { content: 'Imagen de ejemplo'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg); background: #FCE7A4; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 999px; padding: .3rem .8rem; font: 800 .75rem/1 var(--body, sans-serif); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+  .shot .pic img { filter: saturate(.8); }
   .shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1.5px solid var(--border); background: #fff; }
   .shot figcaption { margin-top: .4rem; font-size: .9rem; color: var(--muted); }
   .narrow h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
@@ -207,8 +211,8 @@
           <p>Es el paso que más se olvida: sin él, la app aparece como no disponible. Abre el enlace y toca <strong>«Convertirse en verificador»</strong> (así le dice Google a quien prueba la app). Sabes que funcionó cuando ves <strong>«Eres un probador»</strong>, como en la imagen.</p>
           <a class="btn" href="https://play.google.com/apps/testing/com.deinygp.brote" rel="noopener">Ser tester de Brote</a>
           <figure class="shot">
-            <img src="img/paso-probador.webp" width="698" height="900" loading="lazy" alt="Página de Google Play que dice «Eres un probador» para Brote, con el enlace azul «descárgala en Google Play».">
-            <figcaption>Así se ve cuando ya eres tester. El enlace azul te lleva a instalarla.</figcaption>
+            <div class="pic"><img src="img/paso-probador.webp" width="698" height="900" loading="lazy" alt="Imagen de ejemplo: página de Google Play que dice «Eres un probador» para Brote, con el enlace azul «descárgala en Google Play»."></div>
+            <figcaption>Es una imagen de ejemplo, no se puede tocar. Así se ve en tu página de Google cuando ya eres tester: ahí, el enlace azul te lleva a instalarla. También puedes usar el botón del paso 3.</figcaption>
           </figure>
           <p>Si dice que no tienes acceso, Google todavía no te ve en el grupo: revisa que sea la misma cuenta, espera unos 15 minutos y vuelve a abrir el enlace.</p>
         </div>
