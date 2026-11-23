@@ -160,6 +160,10 @@
   .faq p { margin: .5rem 0 0; color: var(--muted); }
   .share { font: 700 1rem/1.4 var(--body); word-break: break-all; }
   .narrow { max-width: 46rem; }
+  /* Aviso que no se puede pasar por alto: la espera es la causa más común de «no disponible». */
+  .wait { display: flex; gap: .8rem; align-items: flex-start; background: #FCE7A4; border: 1.5px solid var(--ink); border-radius: 14px; box-shadow: 4px 5px 0 var(--shadow); padding: .9rem 1rem; margin: 1rem 0; color: var(--ink); }
+  .wait svg { flex: 0 0 26px; width: 26px; height: 26px; margin-top: .1rem; }
+  .wait p { margin: 0; color: var(--ink); }
   .shot { margin: 1.4rem 0 1rem; max-width: 20rem; position: relative; }
   /* Es una foto de la página de Google: el enlace azul de la imagen no se toca aquí. */
   .shot .pic { position: relative; pointer-events: none; user-select: none; }
@@ -214,7 +218,10 @@
             <div class="pic"><img src="img/paso-probador.webp" width="698" height="900" loading="lazy" alt="Imagen de ejemplo: página de Google Play que dice «Eres un probador» para Brote, con el enlace azul «descárgala en Google Play»."></div>
             <figcaption>Es una imagen de ejemplo, no se puede tocar. Así se ve en tu página de Google cuando ya eres tester: ahí, el enlace azul te lleva a instalarla. También puedes usar el botón del paso 3.</figcaption>
           </figure>
-          <p>Si dice que no tienes acceso, Google todavía no te ve en el grupo: revisa que sea la misma cuenta, espera unos 15 minutos y vuelve a abrir el enlace.</p>
+          <div class="wait" role="note">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>
+            <p><strong>¿Dice que no tienes acceso? Espera unos 15 minutos.</strong> Google tarda en ver que entraste al grupo. Revisa que sea la misma cuenta de Play Store y vuelve a abrir el enlace.</p>
+          </div>
         </div>
       </li>
       <li>
